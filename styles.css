@@ -1,0 +1,26 @@
+body{
+    font-family: 'Roboto';
+
+}
+
+#mainTitle {
+    text-align: center;
+    font-size: 40px;
+}
+
+#mainSubtitle{
+    text-align: center;
+    font-size: 25px;
+}
+
+
+#mainQuestionsContainer{
+    margin: 20px;
+    padding: 50px;
+}
+
+#questionContainer{
+    margin: 20px;
+    border: solid black 2px;
+    padding: 50px;
+}
