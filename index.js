@@ -34,7 +34,8 @@ const allQuestions = [
 const getUserAnswer = (e) => { //function which gets the inner text value from a button
     e.preventDefault()
     console.log(e.target.innerText)
-    console.log(e.target.id)
+    // console.log(e.target.id)
+    return (e.target.innerText)
 }
 
 
@@ -59,7 +60,10 @@ function displayQuestionAndAnswers(questionsObj) {
             answerButton.innerText = (questionsObj[i].answers[j])
             answerButton.id = "questionId" + i
             questionsContainer.appendChild(answerButton)
-            answerButton.addEventListener("click", getUserAnswer, false)
+            answerValue = answerButton.addEventListener("click", getUserAnswer, false)
+
+            console.log (answerValue)
+
 
         }
     }
