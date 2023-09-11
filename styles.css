@@ -19,7 +19,7 @@ body{
     padding: 50px;
 }
 
-#questionContainer{
+#mainQuestionsContainer > article {
     margin: 20px;
     border: solid black 2px;
     padding: 50px;
