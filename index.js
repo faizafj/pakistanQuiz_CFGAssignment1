@@ -1,47 +1,80 @@
 const allQuestions = [
     {
+        questionId: "questionId0",
         question: "Which continent is Pakistan in?",
         answers: ["Europe", "Asia", "Africa", "Australasia"],
         correctAnswer: "Asia",
         userAnswer: " "
     }, {
+        questionId: "questionId1",
         question: "What is the national sport of Pakistan?",
         answers: ["Cricket", "Football", "Hockey", "Rugby"],
         correctAnswer: "Hockey",
         userAnswer: " "
     }, {
+        questionId: "questionId2",
         question: "What is the capital city of Pakistan?",
         answers: ["Hyderabad", "Islamabad", "Lahore", "Karachi"],
         correctAnswer: "Islamabad",
         userAnswer: " "
 
     }, {
+        questionId: "questionId3",
         question: "What is the national flower of Pakistan?",
         answers: ["Lotus", "Jasmine", "Rose", "Tulip"],
         correctAnswer: "Jasmine",
         userAnswer: " "
     }, {
+        questionId: "questionId4",
         question: "What two colors are in the flag of Pakistan?",
         answers: ["Yellow and White", "Red and Green", "Green and White", "Green and Black"],
         correctAnswer: "Green and White",
         userAnswer: " "
     }
-
-
 ]
+pointsCounter = localStorage.setItem("points", "0") //set the points to 0, and add to local storage
 
+function addPoints(questions) {
+    pointer = localStorage.getItem("points")
+    if (pointer <= questions.length) { //if points is less than or equal to the length of questions 
+        console.log("pointer = " + pointer)
+        pointsValue = parseInt(pointer) + 1
+        localStorage.setItem("points", pointsValue)
+    }
+}
+
+function checkUserAnswer(questionsObj, questionId, userAnswer) {
+    for (i = 0; i < questionsObj.length; i++) {
+        if (questionsObj[i].questionId === questionId) {
+            if (userAnswer === questionsObj[i].correctAnswer) {
+                addPoints(questionsObj)
+                return ("Yes")
+            } else {
+                return ("Nope!")
+            }
+        }
+    }
+}
 
 const getUserAnswer = (e) => { //function which gets the inner text value from a button
     e.preventDefault()
-    console.log(e.target.innerText)
-    // console.log(e.target.id)
-    return (e.target.innerText)
+    userAnswer = e.target.innerText
+    questionId = e.target.id
+    // console.log (questionId)
+    // console.log (userAnswer)
+    console.log(checkUserAnswer(allQuestions, questionId, userAnswer))
+
 }
 
 
+// const getUserAnswer = (e) => { //function which gets the inner text value from a button
+//     e.preventDefault()
+//     console.log (e.target.innerText)
+
+// }
+
 function displayQuestionAndAnswers(questionsObj) {
     mainQuestionsContainer = document.getElementById('mainQuestionsContainer')
-
     for (i = 0; i < questionsObj.length; i++) {
 
         questionsContainer = document.createElement('article')
@@ -54,25 +87,26 @@ function displayQuestionAndAnswers(questionsObj) {
         questionsContainer.appendChild(questionHeader)
 
 
+
         for (j = 0; j < questionsObj[i].answers.length; j++) { //prints all answer choices as buttons
             // console.log(questionsObj[i].answers[j])
             answerButton = document.createElement('button')
             answerButton.innerText = (questionsObj[i].answers[j])
             answerButton.id = "questionId" + i
             questionsContainer.appendChild(answerButton)
-            answerValue = answerButton.addEventListener("click", getUserAnswer, false)
-
-            console.log (answerValue)
-
-
+            answerButton.addEventListener("click", getUserAnswer, false)
         }
     }
 }
+
+
+
 
 displayQuestionAndAnswers(allQuestions)
 
 
 //get value from input and check if the value is right answer
 //if value is correct add points
+//show if answer is correct or incorrect
 // store all answers or add points to something
 //when one has been pressed disable the rest
