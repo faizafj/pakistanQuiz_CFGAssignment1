@@ -32,57 +32,47 @@ const allQuestions = [
         userAnswer: " "
     }
 ]
-pointsCounter = localStorage.setItem("points", "0") //set the points to 0, and add to local storage
-totalAnswered = localStorage.setItem("totalAnswered", "0") //sets the number of total answered questions to 0
 
-function addPoints(questions) { //adds points to the pointsCounter to see how many the user has gotten correct.
-    pointer = localStorage.getItem("points")
-    if (pointer <= questions.length) {  //if points is less than or equal to the length of questions 
-        // console.log("pointer = " + pointer)
-        pointsValue = parseInt(pointer) + 1
-        localStorage.setItem("points", pointsValue)
-    }
-}
+totalAnswered = localStorage.setItem("totalAnswered", "1") //sets the number of total answered questions to 0
 
-function totalAnsweredCounter (questions) { //adds 1 to the number of questions the user has answered 
+
+
+function totalAnsweredCounter(questions) { //adds 1 to the number of questions the user has answered 
     counter = localStorage.getItem("totalAnswered")
-    if (counter < questions.length) {  //if points is less than or equal to the length of questions 
-        console.log("counter = " + counter)
+    console.log("1   " + counter)
+    if (counter < questions.length) {  //if questions answered is less than the amount of questions 
         counterValue = parseInt(counter) + 1
         localStorage.setItem("totalAnswered", counterValue)
+        counter = localStorage.getItem("totalAnswered") //check
+        console.log("counter = " + counter)
     }
-}
+    else {
+    console.log("counter " + counter + "questions.length " + questions.length)
 
-//check if the users answers are correct
-function checkUserAnswer(questionsObj, questionId, userAnswer) { 
+    quizEnd(counter, questions)
+}}
+
+
+
+//check if the users answers are correct ✅
+function checkUserAnswer(questionsObj, questionId, userAnswer) {
     for (i = 0; i < questionsObj.length; i++) {
         if (questionsObj[i].questionId === questionId) { //checks for the questionId to know which question to reference
+            totalAnsweredCounter(questionsObj) //+1 to total answered questions
             if (userAnswer === questionsObj[i].correctAnswer) { //checks users answer against the correct answer
-                totalAnsweredCounter(questionsObj) //+1 to total answered questions
-                addPoints(questionsObj) //adds a point to total correct answers
-                return ("Yes") 
+                questionsContainer = document.getElementById('questionContainer' + questionId)
+                correctHeader = document.getElementById('correctHeader' + questionId)
+                correctHeader.innerText = ("Correct")
+                // return ("Yes")
             } else {
-                totalAnsweredCounter(questionsObj) //+1 to total answered questions
-                return ("Nope!")
+                questionsContainer = document.getElementById('questionContainer' + questionId)
+                correctHeader = document.getElementById('correctHeader' + questionId)
+                correctHeader.innerText = ("Incorrect")
+
+                // return ("Nope!")
             }
         }
     }
-}
-
-//displays if the users answer was correct or in correct
-function displayAnswerResult(result, questionId) { 
-    if (result == "Yes") { //if correct
-        questionsContainer = document.getElementById('questionContainer'+ questionId)
-        correctHeader = document.getElementById('correctHeader' + questionId)
-        correctHeader.innerText = ("Correct")
-        //    questionsContainer.appendChild(correctHeader)
-    } else { //if incorrect
-        questionsContainer = document.getElementById('questionContainer' + questionId)
-        correctHeader = document.getElementById('correctHeader' + questionId)
-        correctHeader.innerText = ("Incorrect")
-        //    questionsContainer.appendChild(correctHeader)
-    }
-
 }
 
 
@@ -90,17 +80,16 @@ const getUserAnswer = (e) => { //function which gets the inner text value from a
     e.preventDefault()
     userAnswer = e.target.innerText
     questionId = e.target.id
-    // console.log (questionId)
-    // console.log (userAnswer)
+    console.log(questionId)
+    console.log(userAnswer)
     result = checkUserAnswer(allQuestions, questionId, userAnswer)
-    console.log(result)
-    displayAnswerResult(result, questionId)
+    // console.log(result)
+    // displayAnswerResult(result, questionId)
 }
 
-function displayQuestionAndAnswers(questionsObj) {
+function displayQuestionAndAnswers(questionsObj) { //✅
     mainQuestionsContainer = document.getElementById('mainQuestionsContainer')
     for (i = 0; i < questionsObj.length; i++) {
-
         questionsContainer = document.createElement('article')
         questionsContainer.id = ('questionContainer' + questionsObj[i].questionId)
         mainQuestionsContainer.appendChild(questionsContainer)
@@ -110,7 +99,7 @@ function displayQuestionAndAnswers(questionsObj) {
         questionHeader.innerText = (questionsObj[i].question)
         questionsContainer.appendChild(questionHeader)
 
-    
+
         for (j = 0; j < questionsObj[i].answers.length; j++) { //prints all answer choices as buttons
             // console.log(questionsObj[i].answers[j])
             answerButton = document.createElement('button')
@@ -121,20 +110,42 @@ function displayQuestionAndAnswers(questionsObj) {
         }
 
         correctHeader = document.createElement('h2')
-        correctHeader.id = 'correctHeader'+ questionsObj[i].questionId
+        correctHeader.id = 'correctHeader' + questionsObj[i].questionId
         correctHeader.innerText = " "
         questionsContainer.appendChild(correctHeader)
 
     }
-
 }
 
+function quizEnd(questionsAnswered, questionsObj) {
+    finalScoreContainer = document.getElementById('finalScore')
+    totalCorrectText = document.getElementById('totalCorrect')
+    totalIncorrectText = document.getElementById('totalIncorrect')
+
+    totalCorrectText.innerText = "Hello"
+
+    numberOfQuestions = questionsObj.length
+    questionsAnswered = parseInt(questionsAnswered)
+
+    console.log("noQuestions " + numberOfQuestions)
+
+    console.log("questionsAnswered " + questionsAnswered)
+
+    if (questionsAnswered === numberOfQuestions) {
+        console.log("This should work")
+        totalCorrectText.innerText = ("You got 5"  + " right!")
+    } else {
+        console.log("This doesnt work")
+        totalCorrectText.innerText = "This doesnt work"
+    }
+}
 displayQuestionAndAnswers(allQuestions)
+
+
 
 
 //get value from input and check if the value is right answer ✅
 //if value is correct add points ✅
 //show if answer is correct or incorrect ✅
-// store all answers or add points to something
-//Show results
+//Show results (needs to end the game at 5 questions answered, work our how many were right, how many were wrong )
 //when one has been pressed disable the rest
