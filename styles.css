@@ -1,26 +1,103 @@
-body{
+body {
     font-family: 'Roboto';
+    margin: 0;
+    background-color: #B9D2B1;
 
+}
+
+html,
+body {
+  margin: 0px;
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+
+#heading {
+    background-color: #B9D2B1;
+    height: 100%;
+    text-align: center;
+    padding: 20%;
 }
 
 #mainTitle {
-    text-align: center;
-    font-size: 40px;
+    font-family: 'Oooh Baby';
+    font-size: 150px;
+    margin: 0;
+    color: white;
 }
 
-#mainSubtitle{
-    text-align: center;
+#mainSubtitle {
+    font-family: 'Slabo 13px';
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+
+#clickToStartLink{
+    text-decoration: none;
+    font-size: 30px;
+    color: white;
+    margin: 50px;
+    border: solid white 3px;
+    padding: 10px;
+}
+#clickToStartLink:hover{
+    color: black;
+    border: solid black 3px;
+
+}
+
+#mainQuestionsContainer {
+    margin: 20px;
+    padding: 50px;
+    background-color: #B9D2B1;
+}
+
+#mainQuestionsContainer>article {
+    margin: 20px;
+    border: solid white 3px;
+    padding: 50px;
+}
+
+#finalScore {
+    margin: 20px;
+    padding: 25%;
+    color: white;
     font-size: 25px;
+    height: 100%;
 }
 
-
-#mainQuestionsContainer{
-    margin: 20px;
-    padding: 50px;
+button {
+    background-color: #B9D2B1;
+    border: solid white 3px;
+    color: white;
+    margin: 5px;
+    padding: 20px;
+    width: 200px;
+    height: 75px;
+    font-size: 30px;
 }
 
-#mainQuestionsContainer > article {
-    margin: 20px;
-    border: solid black 2px;
-    padding: 50px;
+button:hover {
+    border: solid black 3px;
+    color: black;
 }
+
+#questionHeader {
+    text-align: left;
+}
+
+#clickToRestartLink{
+    text-decoration: none;
+    font-size: 30px;
+    color: white;
+    margin: 50px;
+    border: solid white 3px;
+    padding: 10px;
+}
+#clickToRestartLink:hover{
+    color: black;
+    border: solid black 3px;
+
+}
+

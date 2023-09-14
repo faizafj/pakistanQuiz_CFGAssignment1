@@ -7,31 +7,37 @@
     <title>Pakistan Quiz</title>
     <link rel="stylesheet" href="styles.css">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Oooh Baby' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Slabo 13px' rel='stylesheet'>
 </head>
 
 <body>
 
+    <article id="heading">
+        <h1 id="mainTitle"> Pakistan Quiz </h1>
+        <h2 id="mainSubtitle"> How well do you know the country of Pakistan?</h2>
+        <a id="clickToStartLink" href="#mainContainer">Click to start</a>
+    </article>
+   
+
     <article id="mainContainer">
-        <h1 id="mainTitle" > Pakistan Quiz </h1>
-
-        <h2 id="mainSubtitle"> How well do you know Pakistan?</h2>
-
-
+        <center>
         <article id="mainQuestionsContainer">
 
         </article>
+            <article id="finalScore">
 
-        <article id="finalScore">
+                <h1 id="totalCorrect"> </h1>
+                <h1 id="totalIncorrect"> </h1>
+                <h1 id="advice"> </h1>
+                <a id="clickToRestartLink" hidden="true" href="index.html" onClick="Refresh()"> Try Again?</a>
 
-            <h1 id="totalCorrect"> </h1>
-            <h1 id="totalIncorrect">  </h1>
-
-        </article>
+            </article>
+        </center>
     </article>
 
-   
+
     <script src="index.js"> </script>
 </body>
 
 </html>
-

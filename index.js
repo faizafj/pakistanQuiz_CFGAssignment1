@@ -26,9 +26,16 @@ const allQuestions = [
         userAnswer: " "
     }, {
         questionId: "questionId4",
-        question: "What two colors are in the flag of Pakistan?",
-        answers: ["Yellow and White", "Red and Green", "Green and White", "Green and Black"],
-        correctAnswer: "Green and White",
+        question: "Which is the flag of Pakistan?",
+        answers: ["🇰🇼", "🇵🇰", "🇲🇷", "🇹🇷"],
+        correctAnswer: "🇵🇰",
+        userAnswer: " "
+    },
+    {
+        questionId: "questionId5",
+        question: "What is one of the main languages spoken in Pakistan?",
+        answers: ["Urdu", "Hindi", "Pakistani", "Farsi"],
+        correctAnswer: "Urdu",
         userAnswer: " "
     }
 ]
@@ -58,7 +65,14 @@ function totalAnsweredCounter(questions) { //adds 1 to the number of questions t
     }
 }
 
-
+// function disableButtons(questionId) {
+//     buttons = document.getElementsByTagName('button')
+//     for (i = 0; i < buttons.length; i++) {
+//         if (buttons[i] === document.getElementById(questionId)){
+//             buttons[i].disabled = true;
+//         }
+//     }
+// }
 
 //check if the users answers are correct 
 function checkUserAnswer(questionsObj, questionId, userAnswer) {
@@ -67,15 +81,17 @@ function checkUserAnswer(questionsObj, questionId, userAnswer) {
             if (userAnswer === questionsObj[i].correctAnswer) { //checks users answer against the correct answer
                 questionsContainer = document.getElementById('questionContainer' + questionId)
                 correctHeader = document.getElementById('correctHeader' + questionId)
-                correctHeader.innerText = ("Correct")
+                correctHeader.innerText = ("Correct ✅")
                 addPoints(questionsObj)
                 totalAnsweredCounter(questionsObj) //+1 to total answered questions
+                // disableButtons(questionId)
                 // return ("Yes")
             } else {
                 questionsContainer = document.getElementById('questionContainer' + questionId)
                 correctHeader = document.getElementById('correctHeader' + questionId)
-                correctHeader.innerText = ("Incorrect")
+                correctHeader.innerText = ("Incorrect ❌")
                 totalAnsweredCounter(questionsObj) //+1 to total answered questions
+                // disableButtons(questionId)
                 // return ("Nope!")
             }
         }
@@ -102,7 +118,8 @@ function displayQuestionAndAnswers(questionsObj) { //
 
         // console.log (questionsObj[i].question)
         questionHeader = document.createElement('h2')
-        questionHeader.innerText = (questionsObj[i].question)
+        questionHeader.innerText = (`Question ${i + 1}: ${questionsObj[i].question}`)
+        questionHeader.id = "questionHeader"
         questionsContainer.appendChild(questionHeader)
 
 
@@ -127,6 +144,8 @@ function quizEnd(questionsAnswered, questionsObj) {
     finalScoreContainer = document.getElementById('finalScore')
     totalCorrectText = document.getElementById('totalCorrect')
     totalIncorrectText = document.getElementById('totalIncorrect')
+    adviceText = document.getElementById('advice')
+    clickToRestartLink = document.getElementById('clickToRestartLink')
 
     numberOfQuestions = questionsObj.length
     questionsAnswered = parseInt(questionsAnswered)
@@ -138,13 +157,24 @@ function quizEnd(questionsAnswered, questionsObj) {
 
     if (questionsAnswered === numberOfQuestions) { //If all questions were answered
         if (parseInt(totalPoints) === numberOfQuestions) {
-            totalCorrectText.innerText = ("Congrats! You got all" + parseInt(totalPoints) + " questions right!")
+            totalCorrectText.innerText = (`Congrats! You got all  ${parseInt(totalPoints)}  questions right!`)
+            adviceText.innerText = ("You clearly know a lot about Pakistan!")
+            clickToRestartLink.removeAttribute('hidden')
+            totalCorrectText.scrollIntoView();
+        } else if (parseInt(totalPoints) === 0) {
+            totalIncorrectText.innerText = (`Oh dear! You got ALL questions wrong!`)
+            adviceText.innerText = ("It might be time do a little bit of research!")
+            clickToRestartLink.removeAttribute('hidden')
+            totalIncorrectText.scrollIntoView();
         } else {
-            totalCorrectText.innerText = ("You got " + parseInt(totalPoints) + " questions right!")
-            totalIncorrectText.innerText = ("And you got " + (numberOfQuestions - parseInt(totalPoints)) + " wrong!")
+            totalCorrectText.innerText = (`You got ${parseInt(totalPoints)}  questions right.`)
+            totalIncorrectText.innerText = (`And you got  ${(numberOfQuestions - parseInt(totalPoints))} questions wrong!`)
+            adviceText.innerText = ("Better luck next time!")
+            clickToRestartLink.removeAttribute('hidden')
+            totalCorrectText.scrollIntoView();
         }
 
-    } 
+    }
 }
 displayQuestionAndAnswers(allQuestions)
 
@@ -154,5 +184,5 @@ displayQuestionAndAnswers(allQuestions)
 //get value from input and check if the value is right answer ✅
 //if value is correct add points ✅
 //show if answer is correct or incorrect ✅
-//Show results (needs to end the game at 5 questions answered, work our how many were right, how many were wrong )
+//Show results (needs to end the game at 5 questions answered, work our how many were right, how many were wrong )✅
 //when one has been pressed disable the rest
