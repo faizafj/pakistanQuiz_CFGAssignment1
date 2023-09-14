@@ -63,17 +63,18 @@ function totalAnsweredCounter(questions) { //adds 1 to the number of questions t
     }
 }
 
-// function disableButtons(questionId, questionsList) { //disable to the buttons after question has been answered
-//     buttons = document.getElementsByClassName(questionId)
-//     console.log(questionId)
-//         // for (i = 0; i < buttons.length; i++) {
-//         //     console.log(questionId)
-//         //         buttons[i].disabled = true
-//         // }
-// }
+function disableButtons(questionId) { //disable to the buttons after question has been answered
+    buttons = document.getElementsByClassName(questionId)
+    console.log(questionId)
+    for (i = 0; i < buttons.length; i++) {
+        console.log(questionId)
+        buttons[i].disabled = true
+    }
+}
 
 //check if the users answers are correct 
 function checkUserAnswer(questionsList, questionId, userAnswer) {
+    disableButtons(questionId)
     for (i = 0; i < questionsList.length; i++) {
         if (questionsList[i].questionId === questionId) { //checks for the questionId to know which question to reference
             if (userAnswer === questionsList[i].correctAnswer) { //checks users answer against the correct answer
@@ -82,13 +83,12 @@ function checkUserAnswer(questionsList, questionId, userAnswer) {
                 correctHeader.innerText = ("Correct ✅")
                 addPoints(questionsList, questionsList)
                 totalAnsweredCounter(questionsList) //+1 to total answered questions
-                // disableButtons(questionId, questionsList)
             } else {
                 questionsContainer = document.getElementById('questionContainer' + questionId)
                 correctHeader = document.getElementById('correctHeader' + questionId)
                 correctHeader.innerText = ("Incorrect ❌")
                 totalAnsweredCounter(questionsList) //+1 to total answered questions
-                // disableButtons(questionId,questionsList)
+               
             }
         }
     }
