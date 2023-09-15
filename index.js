@@ -178,8 +178,3 @@ displayQuestionAndAnswers(allQuestions)
 
 
 
-//get value from input and check if the value is right answer ✅
-//if value is correct add points ✅
-//show if answer is correct or incorrect ✅
-//Show results (needs to end the game at 6 questions answered, work our how many were right, how many were wrong )✅
-//when one has been pressed disable the rest
